@@ -1,0 +1,78 @@
+<div class="container">
+    <main>
+        <div class="py- text-center">
+            <img class="d-block mx-auto mb-4" src="../../../assets/img/eProdutorImg.png" alt="" width="72" height="57">
+            <h2>Dashboard:</h2>
+        </div>
+        <a [routerLink]="['/home']" class="btn btn-primary" style="margin-bottom: 10px;">Voltar</a>
+
+        <div class="row w-100 d-flex">
+            <div class="col-md-3 d-flex" *ngIf="dados">
+                <div class="card border-success mx-sm-1 p-3 flex-fill">
+                    <div class="card border-success text-center shadow text-success p-3 my-card"><span
+                            aria-hidden="true">
+                            <h4 class="align-items-center">Total fazendas</h4>
+                        </span></div>
+                    <div class="text-success text-center mt-2">
+                        <h1>{{dados.totalFazendas}} </h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 d-flex" *ngIf="dados">
+                <div class="card border-success mx-sm-1 p-3">
+                    <div class="card border-success text-center shadow text-success p-3 my-card flex-fill"><span
+                            class="" aria-hidden="true">
+                            <h4>Total Hectares</h4>
+                        </span></div>
+                    <div class="text-success text-center mt-2">
+                        <h1>{{ dados.totalAreaFazendas | mqhectares }}</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 d-flex" *ngIf="dados">
+                <div class="card border-success mx-sm-1 p-3">
+                    <div class="card border-success text-center shadow text-success p-3 my-card flex-fill"><span
+                            class="" aria-hidden="true">
+                            <h4>Agricultavel</h4>
+                        </span></div>
+                    <div class="text-success text-center mt-2">
+                        <h1>{{dados.areaAgricultavel | mqhectares }} </h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 d-flex" *ngIf="dados">
+                <div class="card border-success mx-sm-1 p-3">
+                    <div class="card border-success text-center shadow text-success p-3 my-card "><span class=""
+                            aria-hidden="true">
+                            <h4>Total Vegetação</h4>
+                        </span></div>
+                    <div class="text-success text-center mt-2">
+                        <h1>{{ dados.areaVegetacao | mqhectares }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <h2>Estados</h2>
+                    <canvas #pieChartEstado></canvas>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h2>Uso Solo</h2>
+                    <canvas #pieChartUsoSolo></canvas>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h2>Culturas por Fazendas</h2>
+                    <canvas #pieChartCulturaPlantada></canvas>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+    </main>
+</div>

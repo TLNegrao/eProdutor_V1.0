@@ -1,0 +1,188 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "eProdutor API",
+      "description": "O Sistema de Gerenciamento de Produtores é uma plataforma robusta e intuitiva que permite aos administradores um sistema de criar, editar, excluir e visualizar informações de produtores de forma eficiente. Ele foi projetado para oferecer um controle completo sobre a base de produtores, garantindo a facilidade de uso do sistema.",
+      "version": "1.0"
+    },
+
+    "host": "localhost:3000",
+    "basePath": "",
+
+    "tags": [
+      {
+        "name": "Produtor",
+        "description": "Operações relacionadas a Produtores"
+      }
+    ],
+
+    "components": {
+      "schemas": {
+        "Fazendeiro": {
+          "type": "object",
+          "properties": {
+            "cpf": {
+              "type": "string"
+            },
+            "cnpj": {
+              "type": "string"
+            },
+            "nomeProdutor": {
+              "type": "string"
+            },
+            "nomeFazenda": {
+              "type": "string"
+            },
+            "cidade": {
+              "type": "string"
+            },
+            "estado": {
+              "type": "string",
+              "enum": ["SP", "MG", "PR"]
+            },
+            "areaTotal": {
+              "type": "number"
+            },
+            "areaAgricultavel": {
+              "type": "number"
+            },
+            "areaVegetacao": {
+              "type": "number"
+            },
+            "culturasPlantadas": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["Soja", "Milho", "Algodao", "Cafe", "Cana_de_Acucar"]
+              }
+            }
+          },
+          "required": ["nomeProdutor", "nomeFazenda", "cidade", "estado", "areaTotal", "areaAgricultavel", "areaVegetacao", "culturasPlantadas"]
+        }
+      }
+    },
+
+    "paths": {
+
+      "/register": {
+        "post": {
+          "summary": "Cadastra um novo produtor no sistema.",
+        "description": "Cadastra um novo produtor no sistema.",
+        "operationId": "addUser",
+        "requestBody": {
+          "description": "Cadastra um novo produtor no sistema.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Fazendeiro"
+              }
+            }            
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Fazendeiro"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        },
+        "tags": ["Produtor"]
+        }
+      },
+
+      "/list-fazendeiro": {
+        "get": {
+          "summary": "Listar todos os produtores",
+          "description": "Esta operação retorna a lista de todos os produtores cadastrados no sistema.",
+          "responses": {
+            "200": {
+              "description": "Sucesso"              
+            },
+            "500": {
+              "description": "Erro interno do servidor"
+            }
+          },
+          "tags": ["Produtor"]
+        }
+      },      
+
+      "/list-fazendeiro/{id}": {
+        "get": {
+          "summary": "Traz produtor por Id",
+          "description": "Esta operação traz produtor escolhido do sistema por Id.",
+
+          "operationId": "getIdFazendeiro",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID do produtor que precisa ser trazido",
+              "required": true, 
+                "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Sucesso"              
+            },
+            "500": {
+              "description": "Erro interno do servidor"
+            }
+          },
+          "tags": ["Produtor"]
+        }
+      },     
+
+      "/dashFazendeiros": {
+        "get": {
+          "summary": "Pega dados para os gráficos.",
+          "description": "Esta operação retorna os dados para o frontEnd montar os gráficos informativos..",
+          "responses": {
+            "200": {
+              "description": "Sucesso"              
+            },
+            "500": {
+              "description": "Erro interno do servidor"
+            }
+          },
+          "tags": ["Produtor"]
+        }
+      },
+
+      "/delete-fazendeiro/{id}": {
+        "delete": {
+          "summary": "Exclui produtor do sistema por Id",
+          "description": "Esta operação exclui produtor escolhido do sistema.",
+
+          "operationId": "deleteFazendeiro",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID do produtor que precisa ser excluído",
+              "required": true,
+                "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Sucesso"              
+            },
+            "500": {
+              "description": "Erro interno do servidor"
+            }
+          },
+          "tags": ["Produtor"]
+        }
+      }
+    }      
+}

@@ -1,0 +1,97 @@
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <h2>Gerenciar <b>Fazendeiros</b></h2>
+                    </div>
+
+                    <div class="col-sm-6">
+
+                        <a class="btn btn-success" style="margin-right: 5px;" [routerLink]="['/cadastro']"><i class="material-icons"></i>
+                            <span>Cadastro</span></a>
+
+                        <a class="btn btn-danger" [routerLink]="['/dashboard']"><i class="material-icons"></i>
+                            <span>Dashboard</span></a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>CPF</th>
+                        <th>CNPJ</th>
+                        <th>Fazendeiro</th>
+                        <th>Nome<br> da Fazenda</th>
+                        <th>Cidade</th>
+                        <th>Estado</th>
+                        <th>Área<br> Total</th>
+                        <th>Área<br> Agricultável</th>
+                        <th>Área de<br> Vegetação</th>
+                        <th>Culturas<br> Plantadas</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let fazendeiro of fazendeiros">
+                        <td>{{ fazendeiro.cpf | cpfFormat }}</td>
+                        <td>{{ fazendeiro.cnpj | cnpjFormat }}</td>
+                        <td>{{ fazendeiro.nomeProdutor }}</td>
+                        <td>{{ fazendeiro.nomeFazenda }}</td>
+                        <td>{{ fazendeiro.cidade }}</td>
+                        <td>{{ fazendeiro.estado }}</td>
+                        <td>{{ fazendeiro.areaTotal | mqhectares }}</td>
+                        <td>{{ fazendeiro.areaAgricultavel | mqhectares }}</td>
+                        <td>{{ fazendeiro.areaVegetacao | mqhectares }}</td>
+                        <td>{{ fazendeiro.culturasPlantadas  }}</td>
+                        <td>
+
+                            <div>
+                                <div>
+                                    <a [routerLink]="['/update', fazendeiro._id]"><i class="fas fa-edit"
+                                            data-toggle="tooltip" title="Editar"></i></a>
+                                </div>
+                                <div>
+                                    <a type="button" (click)="setFazendeiroToDeleteId(fazendeiro._id)"
+                                        data-bs-toggle="modal" data-bs-target="#deleteModal"><i
+                                            class="fal fa-trash-alt fa-lg" data-toggle="tooltip"
+                                            title="Excluir"></i></a>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-content">
+        <div class="modal-body text-center">
+            <p>Para excluir digite <b>Delete</b> no espaço a baixo!</p>
+            <form>
+                <div class="form-group mb-3">
+                    <label class="col-form-label"></label>
+                    <input type="text" name="deleteInput" class="form-control" [(ngModel)]="deleteInput">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" [disabled]="deleteInput !== 'Delete'"
+                (click)="deleteUser( )" data-bs-dismiss="modal">Sim</button>
+            <button type="button" class="btn btn-light" (click)="resetModal()" data-bs-dismiss="modal">Não</button>
+        </div>
+    </div>
+</div>

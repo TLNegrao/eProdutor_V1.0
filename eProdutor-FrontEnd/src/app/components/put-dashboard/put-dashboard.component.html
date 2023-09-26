@@ -1,0 +1,164 @@
+<div class="container">
+    <main>
+        <div class="py-4 text-center">
+            <img class="d-block mx-auto mb-4" src="../../../assets/img/eProdutorImg.png" alt="" width="72" height="57">
+            <h2>Atualização de Produtor:</h2>
+        </div>     
+        
+        <form id="upDataForm" [formGroup]="upDataForm" (ngSubmit)="aualizarFazendeiro()">
+            <div class="row m-0">
+                <div class="col-md-4">
+                    <br>
+                    <div class="form-group d-flex justify-content-between">
+                        <a [routerLink]="['/home']" class="btn btn-primary">Voltar</a>
+                        <button type="submit" class="btn btn-primary" [disabled]="isSaveButtonDisabled">Salvar</button>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-12">
+
+                <div class="row m-0">
+
+                    <div class="col-sm-6">
+                        <div class="obj1">
+
+                            <label class="radio-inline">
+                                <input type="radio" formControlName="tipoDocumento" name="tipoDocumento" id="cnpj"
+                                    value="cnpj" [attr.disabled]="isDisabled"><span class="indicator"></span> CNPJ:
+                            </label>
+                            <input type="number" class="form-control" placeholder="{{farm.cnpj}}" value="cnpj" required
+                                formControlName="cnpj" [(ngModel)]="cnpj" [attr.disabled]="isDisabled">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="obj2">
+                            <label class="radio-inline">
+                                <input type="radio" formControlName="tipoDocumento" name="tipoDocumento" id="cpf"
+                                    value="cpf" [attr.disabled]="isDisabled"><span class="indicator"></span> CPF:
+                            </label>                            
+                            <input type="number" class="form-control" placeholder="{{farm.cpf}}" value="cpf" required
+                                formControlName="cpf" [(ngModel)]="cpf" [attr.disabled]="isDisabled">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="row m-0">
+                <div class="col-12 form-group">
+
+                    <label for="nomeProdutor">Nome Produtor:</label>
+                    
+                    <input type="text" name="nome" [(ngModel)]="nomeProdutor" formControlName="nomeProdutor" class="form-control mb-2"
+                        [placeholder]="farm.nomeProdutor" />
+
+                </div>
+
+                <div class="col-12 form-group">
+                    <label for="nomeFazenda">Nome Fazenda:</label>
+
+                    <input type="text" name="nomeFazenda" formControlName="nomeFazenda" class="form-control mb-2"
+                        [placeholder]="farm.nomeFazenda" [(ngModel)]="nomeFazenda"/>
+                </div>
+            </div>
+
+
+            <div class="row m-0">
+                <div class="col-sm-6 form-group">
+                    <label for="cidade">Cidade:</label>
+
+                    <input type="text" name="cidade" formControlName="cidade" class="form-control mb-2"
+                         [placeholder]="farm.cidade" [(ngModel)]="cidade"/>
+
+                </div>
+
+                <div class="col-sm-6 form-group">
+
+
+                    
+                    <label for="estado">Estado:</label>
+                    <select class="form-select" id="estado" formControlName="estado"
+                        style="margin: 0;" [(ngModel)]="estado">
+                        <option>SP</option>
+                        <option>MG</option>
+                        <option>PR</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Selecione um estado válido.
+                    </div>
+                </div>
+            </div>
+
+                <div class="row m-0">
+                    <div class="col-md-4 form-group">
+                        <label for="areaTotal">Área total:</label>
+                        <input type="text" name="areaTotal" [placeholder]="farm.areaTotal" formControlName="areaTotal"
+                            class="form-control" [(ngModel)]="areaTotal" (change)="verificarCamposPreenchidos()" (input)="verificarCamposPreenchidos2()"/>
+    
+                    </div>
+
+                <div class="col-md-4 form-group">
+                    <label for="areaAgricultavel">Área agricultável:</label>
+                    <input type="text" name="areaAgricultavel" formControlName="areaAgricultavel" class="form-control"
+                        [(ngModel)]="areaAgricultavel" [placeholder]="farm.areaAgricultavel" (change)="verificarCamposPreenchidos()" (input)="verificarCamposPreenchidos2()"/>
+
+                </div>
+
+
+                <div class="col-md-4 form-group">
+                    <label for="areaVegetacao">Área de vegetação :</label>
+                    <input type="text" name="areaVegetacao" formControlName="areaVegetacao" class="form-control"
+                        [(ngModel)]="areaVegetacao" [placeholder]="farm.areaVegetacao" (change)="verificarCamposPreenchidos()" (input)="verificarCamposPreenchidos2()"/>
+
+                </div>
+
+
+                <div class="col-sm-12">
+                    <br>
+                    <div class="col-md-7 col-lg-8 form-group">
+
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="soja" [checked]="farm.culturasPlantadas?.includes('Soja')" (change)="toggleCultura('Soja')">
+                            <label class="form-check-label" for="soja">Soja</label>
+                          </div>
+
+                          
+
+                    
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="milho" [checked]="farm.culturasPlantadas?.includes('Milho')" (change)="toggleCultura('Milho')">
+                            <label class="form-check-label" for="milho">Milho</label>
+                          </div>
+
+
+                    
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="algodao" [checked]="farm.culturasPlantadas?.includes('Algodao')" (change)="toggleCultura('Algodao')">
+                            <label class="form-check-label" for="algodao">Algodão</label>
+                          </div>
+                    
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="cafe" [checked]="farm.culturasPlantadas?.includes('Cafe')" (change)="toggleCultura('Cafe')">
+                            <label class="form-check-label" for="cafe">Café</label>
+                          </div>
+                    
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="cana" [checked]="farm.culturasPlantadas?.includes('Cana_de_Acucar')" (change)="toggleCultura('Cana_de_Acucar')">
+                            <label class="form-check-label" for="cana">Cana de Açucar</label>
+                          </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </main>
+</div>
+
+
